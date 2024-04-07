@@ -1,0 +1,17 @@
+body {
+    margin: 20 px auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background-color: #e9f1f1;
+    padding: 20px;
+}
+
+table {
+    width: 80%;
+}
+
+td, th {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}

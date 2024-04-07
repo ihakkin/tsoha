@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_847e4b3d8835b998efdad07590c178fc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 600.0px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_847e4b3d8835b998efdad07590c178fc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_847e4b3d8835b998efdad07590c178fc = L.map(
+                "map_847e4b3d8835b998efdad07590c178fc",
+                {
+                    center: [60.1799, 24.9384],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8b1b1f55d894683698bccae1e2ddca98 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_8b1b1f55d894683698bccae1e2ddca98.addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+            var marker_44d44393cb50e28af74aa9ee43706d0c = L.marker(
+                [60.173264, 24.967426],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_6a52eea063fd0ab86203964a07e5bdca = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_642e9953f16aee013847c364646e462f = $(`<div id="html_642e9953f16aee013847c364646e462f" style="width: 100.0%; height: 100.0%;"><a href='/park/1'>Tervasaaren koira-aitaus</a></div>`)[0];
+                popup_6a52eea063fd0ab86203964a07e5bdca.setContent(html_642e9953f16aee013847c364646e462f);
+            
+        
+
+        marker_44d44393cb50e28af74aa9ee43706d0c.bindPopup(popup_6a52eea063fd0ab86203964a07e5bdca)
+        ;
+
+        
+    
+    
+            var marker_ea6988a648795f7fb98669ca99260506 = L.marker(
+                [60.180702, 24.939562],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_4e4d88c9d60ab327cc9a7ea5291a03ab = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d64421e3dfdf900594eba012ef34e6aa = $(`<div id="html_d64421e3dfdf900594eba012ef34e6aa" style="width: 100.0%; height: 100.0%;"><a href='/park/2'>Tokoinrannan koira-aitaus</a></div>`)[0];
+                popup_4e4d88c9d60ab327cc9a7ea5291a03ab.setContent(html_d64421e3dfdf900594eba012ef34e6aa);
+            
+        
+
+        marker_ea6988a648795f7fb98669ca99260506.bindPopup(popup_4e4d88c9d60ab327cc9a7ea5291a03ab)
+        ;
+
+        
+    
+    
+            var marker_c98197aac296c9d860d32238ffe4f2ec = L.marker(
+                [60.185356, 24.958001],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_ea2fffebb522b7723401beaa6c0aa347 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_12c81acfa1faa0edf24124c5844513d3 = $(`<div id="html_12c81acfa1faa0edf24124c5844513d3" style="width: 100.0%; height: 100.0%;"><a href='/park/3'>Pengerpuiston koira-aitaus</a></div>`)[0];
+                popup_ea2fffebb522b7723401beaa6c0aa347.setContent(html_12c81acfa1faa0edf24124c5844513d3);
+            
+        
+
+        marker_c98197aac296c9d860d32238ffe4f2ec.bindPopup(popup_ea2fffebb522b7723401beaa6c0aa347)
+        ;
+
+        
+    
+    
+            var marker_fc6a6c9084075cf0eb292b0fb71dd7d2 = L.marker(
+                [60.181968, 24.905033],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_192895427c8b5710dcb1edeeb965a990 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_17e36276a3b2bd4cab8e54f2ef0d6f67 = $(`<div id="html_17e36276a3b2bd4cab8e54f2ef0d6f67" style="width: 100.0%; height: 100.0%;"><a href='/park/8'>Rajasaaren koira-aitaus</a></div>`)[0];
+                popup_192895427c8b5710dcb1edeeb965a990.setContent(html_17e36276a3b2bd4cab8e54f2ef0d6f67);
+            
+        
+
+        marker_fc6a6c9084075cf0eb292b0fb71dd7d2.bindPopup(popup_192895427c8b5710dcb1edeeb965a990)
+        ;
+
+        
+    
+    
+            var marker_53fd51c486c87c9f768c5a92bfb36f5e = L.marker(
+                [60.181149, 24.985516],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_611f6d37d9ffeffb9d3269ce08e0e100 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ea6bb6545d8e5f2e10ea5c057dec10ec = $(`<div id="html_ea6bb6545d8e5f2e10ea5c057dec10ec" style="width: 100.0%; height: 100.0%;"><a href='/park/7'>Mustikkamaan koira-aitaus</a></div>`)[0];
+                popup_611f6d37d9ffeffb9d3269ce08e0e100.setContent(html_ea6bb6545d8e5f2e10ea5c057dec10ec);
+            
+        
+
+        marker_53fd51c486c87c9f768c5a92bfb36f5e.bindPopup(popup_611f6d37d9ffeffb9d3269ce08e0e100)
+        ;
+
+        
+    
+    
+            var marker_5db51fbc2c13c0f5b391bb8d39b63d1c = L.marker(
+                [60.189745, 24.949039],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_699cb237a19670deb894165b7af15e04 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d07777c69a06ff8f3656e7c63730a501 = $(`<div id="html_d07777c69a06ff8f3656e7c63730a501" style="width: 100.0%; height: 100.0%;"><a href='/park/4'>Brahenpuistikon koira-aitaus</a></div>`)[0];
+                popup_699cb237a19670deb894165b7af15e04.setContent(html_d07777c69a06ff8f3656e7c63730a501);
+            
+        
+
+        marker_5db51fbc2c13c0f5b391bb8d39b63d1c.bindPopup(popup_699cb237a19670deb894165b7af15e04)
+        ;
+
+        
+    
+    
+            var marker_65594cb6e21ee32cee07e4030f84f4ad = L.marker(
+                [60.18305, 24.963985],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_b299bc1490ce76d5e7445994c3c6f3b6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_60d7e4dd8c5178efa57f38a9431ebd50 = $(`<div id="html_60d7e4dd8c5178efa57f38a9431ebd50" style="width: 100.0%; height: 100.0%;"><a href='/park/5'>Väinö Vähäkallion puiston koira-aitaus</a></div>`)[0];
+                popup_b299bc1490ce76d5e7445994c3c6f3b6.setContent(html_60d7e4dd8c5178efa57f38a9431ebd50);
+            
+        
+
+        marker_65594cb6e21ee32cee07e4030f84f4ad.bindPopup(popup_b299bc1490ce76d5e7445994c3c6f3b6)
+        ;
+
+        
+    
+    
+            var marker_0d0d218b8ed7be9499b4e635fd3f1e0f = L.marker(
+                [60.192129, 24.934546],
+                {}
+            ).addTo(map_847e4b3d8835b998efdad07590c178fc);
+        
+    
+        var popup_94757b8645a20b9fe8fef42833a4972a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f8faf3f7505c448f870064f8ddd0b2ba = $(`<div id="html_f8faf3f7505c448f870064f8ddd0b2ba" style="width: 100.0%; height: 100.0%;"><a href='/park/6'>Alppipuiston koira-aitaus</a></div>`)[0];
+                popup_94757b8645a20b9fe8fef42833a4972a.setContent(html_f8faf3f7505c448f870064f8ddd0b2ba);
+            
+        
+
+        marker_0d0d218b8ed7be9499b4e635fd3f1e0f.bindPopup(popup_94757b8645a20b9fe8fef42833a4972a)
+        ;
+
+        
+    
+</script>
+</html>

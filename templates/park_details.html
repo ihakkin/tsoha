@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>{{ park_info['name'] }}</h2>
+<p><strong>Osoite:</strong> {{ park_info['address'] }}</p>
+
+<ul>
+  {% for key, value in park_info['features'].items() %}
+    {% if key == 'Separate areas for small and big dogs' %}
+      <li><strong>Erilliset aitaukset pienille ja isoille koirille:</strong> {{ value }}</li>
+    {% elif key == 'Entrance area' %}
+      <li><strong>Aitauksessa on eteinen:</strong> {{ value }}</li>
+    {% elif key == 'Dog beach' %}
+      <li><strong>Koirien uimaranta:</strong> {{ value }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% if session.user_id %}
+<h3>Jätä arvio</h3>
+<form action="/park/{{ park_id }}/review" method="POST">
+  <label for="rating">Arvosana (1-5 tähteä):</label>
+  <input type="number" id="rating" name="rating" min="1" max="5" required>
+  <label for="comment">Kommentti:</label>
+  <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+  <input type="hidden" name="park_id" value="{{ park_id }}">
+  <input type="submit" value="Lähetä arvio">
+</form>
+{% else %}
+<p>Kirjaudu sisään arvion jättämiseksi.</p>
+{% endif %}
+
+<h3>Arviot</h3>
+<ul>
+  {% for review in review %}
+    <li>{{ review.username }} antoi arvosanaksi {{ review.stars }} tähteä ja kommentoi: {{ review.comment }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
