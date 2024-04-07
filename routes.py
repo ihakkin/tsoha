@@ -33,7 +33,6 @@ def park_details(park_id):
     park_info = parks.get_park_details(park_id)
 
     if park_info:
-        print(park_info.keys())  # 
         review = reviews.get_reviews_for_park(park_id)
         return render_template('park_details.html', park_id=park_id, park_info=park_info, review=review)
     else:

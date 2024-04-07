@@ -37,7 +37,6 @@ def get_park_details(park_id):
           "FROM parks p JOIN address a ON p.id = a.park_id WHERE p.id = :park_id")
     result = db.session.execute(sql, {'park_id': park_id})
     park_info = result.fetchone()
-    print(park_info)
 
     if park_info:
         has_separate_areas = 'Kyllä' if park_info[5] else 'Ei'
