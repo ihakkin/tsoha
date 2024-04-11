@@ -29,6 +29,7 @@ CREATE TABLE address (
     street TEXT,
     postal_code VARCHAR(5),
     city TEXT,
-    coordinates POINT
+    latitude NUMERIC,
+    longitude NUMERIC
 );
 
