@@ -1,9 +1,40 @@
 body {
-    margin: 20 px auto;
-    max-width: 45em;
+    margin: 0 auto; /* Keskittää sisällön ja poistaa ylä- ja alamarginaalit */
+    max-width: 100%; /* Asettaa maksimileveydeksi 100% */
     font-family: 'Helvetica', 'Arial', sans-serif;
     background-color: #e9f1f1;
+}
+
+.container {
     padding: 20px;
+    margin: 0 auto;
+    max-width: 45em
+}
+
+.navbar {
+    width: 100%; /* Aseta navbarin leveydeksi 100% */
+    background-color: #d3f5d3; /* Tummansininen tausta */
+    color: rgb(47, 46, 46);
+    padding: 10px 0; /* Lisää paddingia ylä- ja alareunaan */
+    text-align: right; /* Keskitä linkit */
+    margin: 0; /* Poista kaikki marginaalit */
+}
+
+/* Täydellinen keskittäminen ilman ulkoisia marginaaleja */
+.navbar a {
+    color: rgb(43, 42, 42);
+    padding: 10px 20px; /* Säädä padding arvoja tarvittaessa */
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.logo {
+    height: 200px; /* Säädä logon kokoa tarpeen mukaan */
+    vertical-align: middle;
 }
 
 table {
