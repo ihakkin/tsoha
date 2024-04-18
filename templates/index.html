@@ -23,4 +23,12 @@
         </ul>
     {% endif %}
 
+    <h3>Koirapuistot TOP 5</h3>
+    <ul>
+      {% for park in ranking %}
+        <li>{{ park.name }} - {{ park.average_rating | round(1) }}</li>
+      {% endfor %}
+    </ul>
+
+
 {% endblock %}

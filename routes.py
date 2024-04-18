@@ -25,9 +25,10 @@ def index():
         ).add_to(m)
     
     m.save("templates/map.html")
-    return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results)
- 
- 
+    ranking = reviews.get_ranking() 
+    return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results, ranking=ranking )
+
+                            
 @app.route('/park/<int:park_id>')
 def park_details(park_id):
     park_info = parks.get_park_details(park_id)
@@ -51,6 +52,8 @@ def submit_review_route(park_id):
     if not success:
         return message  
     return redirect(url_for('park_details', park_id=park_id)) 
+
+
  
 
 @app.route("/login",methods=["GET","POST"])
