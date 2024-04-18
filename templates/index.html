@@ -1,22 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
-{% if session.user_id %}
-<p>Olet kirjautunut nimellä {{ session.user_name }}</p>
-<a href="/logout">Kirjaudu ulos</a>
-{% else %}
-<p>Kirjaudu sisään</p>
-<form action="/login" method="POST">
-<p>Tunnus:<br>
-<input type="text" name="username"></p>
-<p>Salasana:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Kirjaudu">
-</form>
-<p>Eikö sinulla ole vielä tiliä? <a href="/register">Luo tili</a>.</p>
-{% endif %}
-
 <h3> Etsi koirapuisto </h3>
 
 {% include 'map.html' %}
