@@ -5,7 +5,7 @@
 
 {% include 'map.html' %}
 
-<h4>Hae ominaisuuksien perusteella</h4>
+<h3>Hae ominaisuuksien perusteella</h3>
 
 <form action="/" method="post">
     <input type="checkbox" name="has_separate_areas" value="true"> Erilliset aitaukset pienille ja isoille koirille<br>
@@ -18,7 +18,7 @@
         <h4>Hakutulokset</h4>
         <ul>
             {% for park in search_results %}
-                <li>{{ park['name'] }}</li>
+                <li><a href="/park/{{ park.id }}">{{ park.name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
