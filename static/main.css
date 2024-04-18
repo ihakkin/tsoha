@@ -6,9 +6,27 @@ body {
 }
 
 .container {
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 45em
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    margin: 20px; 
+    padding: 0; 
+}
+
+.map-container {
+    flex: 2;
+    margin-right: 50px; 
+}
+
+.info-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.rankings, .search {
+    margin-bottom: 20px;
 }
 
 .navbar {
@@ -27,7 +45,7 @@ body {
 }
 
 .navbar a:hover {
-    background-color: #ddd;
+    background-color: #a2dcac;
     color: black;
 }
 

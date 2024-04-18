@@ -1,34 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h3> Etsi koirapuisto </h3>
-
-{% include 'map.html' %}
-
-<h3>Hae ominaisuuksien perusteella</h3>
-
-<form action="/" method="post">
-    <input type="checkbox" name="has_separate_areas" value="true"> Erilliset aitaukset pienille ja isoille koirille<br>
-    <input type="checkbox" name="has_entrance_area" value="true"> Aitauksessa on eteinen<br>
-    <input type="checkbox" name="has_beach" value="true"> Aitauksessa on koirien uimaranta<br>
-    <input type="submit" value="Etsi">
-</form>
-
-{% if search_results %}
-        <h4>Hakutulokset</h4>
-        <ul>
-            {% for park in search_results %}
-                <li><a href="/park/{{ park.id }}">{{ park.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <h3>Koirapuistot TOP 5</h3>
-    <ul>
-      {% for park in ranking %}
-        <li>{{ park.name }} - {{ park.average_rating | round(1) }}</li>
-      {% endfor %}
-    </ul>
-
+<div class="container">
+    <div class="map-container">
+        <h3> Etsi koirapuisto </h3>
+        {% include 'map.html' %}
+    </div>
+    <div class="info-container">
+        <div class="ranking">
+            <h3>Koirapuistot TOP 5</h3>
+            <ul>
+                {% for park in ranking %}
+                    <li>{{ park.name }} - {{ park.average_rating | round(1) }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="search">
+            <h3>Hae ominaisuuksien perusteella</h3>
+            <form action="/" method="post">
+                <input type="checkbox" name="has_separate_areas" value="true"> Erilliset aitaukset pienille ja isoille koirille<br>
+                <input type="checkbox" name="has_entrance_area" value="true"> Aitauksessa on eteinen<br>
+                <input type="checkbox" name="has_beach" value="true"> Aitauksessa on koirien uimaranta<br>
+                <input type="submit" value="Etsi">
+            </form>
+            {% if search_results %}
+                <h4>Hakutulokset</h4>
+                <ul>
+                    {% for park in search_results %}
+                        <li><a href="/park/{{ park.id }}">{{ park.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

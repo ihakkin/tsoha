@@ -27,7 +27,6 @@ def index():
     m.save("templates/map.html")
     ranking = reviews.get_ranking() 
     return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results, ranking=ranking )
-
                             
 @app.route('/park/<int:park_id>')
 def park_details(park_id):
