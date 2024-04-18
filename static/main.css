@@ -1,6 +1,6 @@
 body {
-    margin: 0 auto; /* Keskittää sisällön ja poistaa ylä- ja alamarginaalit */
-    max-width: 100%; /* Asettaa maksimileveydeksi 100% */
+    margin: 0 auto; 
+    max-width: 100%;
     font-family: 'Helvetica', 'Arial', sans-serif;
     background-color: #e9f1f1;
 }
@@ -12,18 +12,17 @@ body {
 }
 
 .navbar {
-    width: 100%; /* Aseta navbarin leveydeksi 100% */
-    background-color: #d3f5d3; /* Tummansininen tausta */
+    width: 100%; 
+    background-color: #d3f5d3; 
     color: rgb(47, 46, 46);
-    padding: 10px 0; /* Lisää paddingia ylä- ja alareunaan */
-    text-align: right; /* Keskitä linkit */
-    margin: 0; /* Poista kaikki marginaalit */
+    padding: 10px 0;
+    text-align: center; 
+    margin: 0; 
 }
 
-/* Täydellinen keskittäminen ilman ulkoisia marginaaleja */
 .navbar a {
     color: rgb(43, 42, 42);
-    padding: 10px 20px; /* Säädä padding arvoja tarvittaessa */
+    padding: 10px 20px; 
     text-decoration: none;
 }
 
@@ -33,7 +32,7 @@ body {
 }
 
 .logo {
-    height: 200px; /* Säädä logon kokoa tarpeen mukaan */
+    height: 200px; 
     vertical-align: middle;
 }
 
@@ -45,4 +44,36 @@ td, th {
     border-style: solid;
     border-color: black;
     border-width: 1px;
+}
+
+.reviews {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.review {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.review strong, .review .stars{
+    display: block;
+    margin-bottom: 15px;
+}
+
+.review .stars {
+    display: inline-block;
+    margin-bottom: 5px; 
+}
+
+.fas, .far {
+    color: gold;
+}
+
+.comment {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
 }

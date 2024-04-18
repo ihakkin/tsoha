@@ -31,10 +31,18 @@
 {% endif %}
 
 <h3>Arviot</h3>
-<ul>
+<div class="reviews">
   {% for review in review %}
-    <li>{{ review.username }} antoi arvosanaksi {{ review.stars }} tähteä ja kommentoi: {{ review.comment }}</li>
+    <div class="review">
+      <strong>{{ review.username }}</strong> 
+      {% for i in range(review.stars) %}
+        <i class="fas fa-star"></i> 
+      {% endfor %}
+      {% for i in range(5-review.stars) %}
+        <i class="far fa-star"></i>
+      {% endfor %}
+      <div class="comment">{{ review.comment }}</div>
+    </div>
   {% endfor %}
-</ul>
-
+</div>
 {% endblock %}
