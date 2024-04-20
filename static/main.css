@@ -23,6 +23,8 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
+
+
 }
 
 .rankings, .search {
@@ -95,3 +97,26 @@ td, th {
     font-style: italic;
     color: #555;
 }
+
+.error-container {
+    background-color: #87da92;
+    color: #0c0d0c; 
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.alert {
+    background-color: #87da92;
+    color: #0c0d0c; 
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #4CAF50; 
+    border-color: darkgreen;
+}
+

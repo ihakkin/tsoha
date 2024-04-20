@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 
-Virhe: {{ message }}
+<div class="error-container">
+    <h2>Virhe</h2>
+    <p>{{ error }}</p>
+    <a href="/">Palaa etusivulle</a>
+</div>
 
 {% endblock %}

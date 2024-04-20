@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from sqlalchemy.sql import text
 import users
 import folium
@@ -39,17 +39,27 @@ def park_details(park_id):
         return "Puistoa ei löytynyt"
 
 
-@app.route('/park/<int:park_id>/review', methods=['POST'])
+@app.route('/park/<int:park_id>', methods=['POST'])
 def submit_review_route(park_id):
     user_id = reviews.session.get('user_id')
     if not user_id:
-        return redirect(url_for('/')) 
+        return redirect(url_for('login')) 
     stars = request.form['rating']
     comment = request.form['comment']
-    
+    if len(comment) > 1000:
+        flash('Kommentti on liian pitkä', 'error')  # 
+        return redirect(url_for('park_details', park_id=park_id))#
+
+        #return render_template("error.html", error="Kommentti on liian pitkä")
+
     success, message = reviews.submit_review(user_id, park_id, stars, comment)
     if not success:
-        return message  
+        #return render_template("error.html", error=message) 
+        flash(message, 'error')
+        return redirect(url_for('park_details', park_id=park_id))
+
+    flash('Kiitos arviostasi!', 'success')
+   
     return redirect(url_for('park_details', park_id=park_id)) 
 
 
