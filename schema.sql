@@ -1,3 +1,5 @@
+CREATE TYPE weekday AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
@@ -36,7 +38,7 @@ CREATE TABLE address (
 CREATE TABLE groups (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    weekday INTEGER,  
+    weekday weekday,  
     time TIME,           
     description TEXT
 );
