@@ -45,6 +45,6 @@ CREATE TABLE groups (
 
 CREATE TABLE park_groups (
     park_id INTEGER REFERENCES Parks(id),
-    gruops_id INTEGER REFERENCES Groups(id),
+    group_id INTEGER REFERENCES Groups(id),
     PRIMARY KEY (park_id, group_id)
 );
