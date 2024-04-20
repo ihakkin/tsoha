@@ -31,6 +31,14 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="error-container">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    
         </div>
     </div>
 </div>
