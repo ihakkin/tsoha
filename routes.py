@@ -8,26 +8,28 @@ import reviews
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    park_coordinates = parks.get_coordinates()
+    park_coordinates = parks.get_coordinates() 
     search_results = None
     if request.method == "POST":
         has_separate_areas = 'has_separate_areas' in request.form
         has_entrance_area = 'has_entrance_area' in request.form
         has_beach = 'has_beach' in request.form
-        search_results = parks.search(has_separate_areas, has_entrance_area, has_beach)
-
-    m = folium.Map(location=[60.1799, 24.9384],  width='100%', height=600, zoom_start=13)
-    for park in park_coordinates:
+        search_results = parks.search(has_separate_areas, has_entrance_area, has_beach)      
+    if search_results:
+        markers = search_results
+    else:
+        markers = park_coordinates
+    m = folium.Map(location=[60.1799, 24.9684], width='100%', height=600, zoom_start=13)
+    for park in markers:
         popup_content = f"<a href='/park/{park['id']}'>{park['name']}</a>"
         folium.Marker(
             [park['latitude'], park['longitude']],
             popup=popup_content
         ).add_to(m)
-    
     m.save("templates/map.html")
     ranking = reviews.get_ranking() 
-    return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results, ranking=ranking )
-                            
+    return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results, ranking=ranking)
+
 @app.route('/park/<int:park_id>')
 def park_details(park_id):
     park_info = parks.get_park_details(park_id)
@@ -50,18 +52,14 @@ def submit_review_route(park_id):
         flash('Kommentti on liian pitkä', 'error')  # 
         return redirect(url_for('park_details', park_id=park_id))#
 
-        #return render_template("error.html", error="Kommentti on liian pitkä")
-
     success, message = reviews.submit_review(user_id, park_id, stars, comment)
     if not success:
-        #return render_template("error.html", error=message) 
         flash(message, 'error')
         return redirect(url_for('park_details', park_id=park_id))
 
     flash('Kiitos arviostasi!', 'success')
    
     return redirect(url_for('park_details', park_id=park_id)) 
-
 
  
 
