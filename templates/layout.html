@@ -10,6 +10,7 @@
 <body>
     <div class="navbar">
         <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Koirapuistot Logo" class="logo"></a>
+        <h1 class="navbar-title">Koirapuistot</h1> 
         {% if session.user_id %}
         <p>Olet kirjautunut nimellä {{ session.user_name }}</p>
         <a href="/logout">Kirjaudu ulos</a>

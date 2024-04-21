@@ -6,6 +6,15 @@ body {
 }
 
 .container {
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+.home-container {
     display: flex; 
     flex-direction: row; 
     justify-content: space-between; 
@@ -129,12 +138,12 @@ td, th {
 }
 
 .error {
-    background-color: #87da92;
-    color: #0c0d0c; 
-    padding: 20px;
+    background-color: #30dd6c; 
+    color: #115423; 
+    padding: 10px;
     margin-top: 20px;
-    border-radius: 5px;
-    font-weight: bold;
+    border-radius: 15px;
+    
 }
 
 .success {
@@ -148,7 +157,7 @@ td, th {
 .group-parks a {
     display: block;
     margin: 5px 0;  
-    color: rgb(15, 65, 41);  
+    color: rgb(23, 5, 139);  
     text-decoration: none;  
 }
 
