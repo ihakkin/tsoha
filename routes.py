@@ -1,10 +1,13 @@
 from app import app
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, jsonify
 from sqlalchemy.sql import text
 import users
 import folium
 import parks
 import reviews
+import groups
+
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -43,7 +46,7 @@ def park_details(park_id):
         review = reviews.get_reviews_for_park(park_id)
         return render_template('park_details.html', park_id=park_id, park_info=park_info, review=review)
     else:
-        return "Puistoa ei löytynyt" #korjaa
+        return "Puistoa ei löytynyt" 
 
 
 @app.route('/park/<int:park_id>', methods=['POST'])
@@ -66,7 +69,18 @@ def submit_review_route(park_id):
    
     return redirect(url_for('park_details', park_id=park_id)) 
 
- 
+
+@app.route('/groups')
+def show_groups():
+    group_data = groups.get_groups() 
+    return render_template('groups.html', groups=group_data)
+
+@app.route('/get-parks/<int:group_id>')
+def get_park_groups(group_id):
+    parks_by_groups = groups.get_parks_by_group(group_id) 
+    park_groups = [row._asdict() for row in parks_by_groups]
+    return jsonify({'park_groups': park_groups})
+
 
 @app.route("/login",methods=["GET","POST"])
 def login():

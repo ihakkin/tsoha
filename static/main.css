@@ -120,3 +120,13 @@ td, th {
     border-color: darkgreen;
 }
 
+.group-parks a {
+    display: block;
+    margin: 5px 0;  
+    color: blue;  
+    text-decoration: none;  
+}
+
+.group-parks a:hover {
+    text-decoration: underline;  
+}
