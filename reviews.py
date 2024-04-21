@@ -23,6 +23,6 @@ def get_review(user_id, park_id):
     return db.session.execute(text(sql), {'user_id': user_id, 'course_id': park_id}).fetchone()
 
 def get_ranking():
-    sql =  "SELECT p.name, AVG(r.stars) AS average_rating FROM reviews r JOIN parks p ON p.id = r.park_id" \
+    sql =  "SELECT p.name, AVG(r.stars) AS average_rating FROM reviews r JOIN parks p ON p.id = r.park_id " \
     "GROUP BY p.id, p.name ORDER BY average_rating DESC LIMIT 5"
     return db.session.execute(text(sql)).fetchall()
