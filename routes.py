@@ -1,5 +1,5 @@
 from app import app
-from flask import flash, redirect, render_template, request, url_for, jsonify
+from flask import session, flash, redirect, render_template, request, url_for, jsonify
 from sqlalchemy.sql import text
 import users
 import folium
@@ -80,6 +80,24 @@ def get_park_groups(group_id):
     parks_by_groups = groups.get_parks_by_group(group_id) 
     park_groups = [row._asdict() for row in parks_by_groups]
     return jsonify({'park_groups': park_groups})
+
+@app.route('/add-group', methods=['POST'])
+def add_group():
+    if session.get('user_role') != 2:
+        flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
+        return redirect(url_for('groups'))
+
+    name = request.form.get('name')
+    description = request.form.get('description')
+
+    if not name or not description:
+        flash('Nimi ja kuvaus ovat pakollisia.', 'error')
+        return redirect(url_for('groups'))
+
+    success, message = groups.add_group_to_db(name, description)
+
+    flash(message, 'success' if success else 'error')
+    return redirect(url_for('show_groups'))
 
 
 @app.route("/login",methods=["GET","POST"])

@@ -13,4 +13,27 @@
 </div>
 
 <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+{% if session.user_role == 2 %} 
+<div class="add-group-form">
+    <h3>Lisää uusi ryhmä</h3>
+    <form action="/add-group" method="post">
+        <label for="name">Ryhmän nimi:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Kuvaus:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <input type="submit" value="Lisää ryhmä">
+    </form>
+</div>
+{% endif %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 {% endblock %}
