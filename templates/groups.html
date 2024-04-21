@@ -23,7 +23,7 @@
 
         <label for="description">Kuvaus:</label>
         <textarea id="description" name="description" required></textarea>
-
+        <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
         <input type="submit" value="Lisää ryhmä">
     </form>
 </div>

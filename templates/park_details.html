@@ -35,6 +35,7 @@
   <label for="comment">Kommentti:</label>
   <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
   <input type="hidden" name="park_id" value="{{ park_id }}">
+  <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
   <input type="submit" value="Lähetä arvio">
 </form>
 {% else %}

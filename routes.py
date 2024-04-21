@@ -51,7 +51,7 @@ def park_details(park_id):
 
 @app.route('/park/<int:park_id>', methods=['POST'])
 def submit_review_route(park_id):
-    user_id = reviews.session.get('user_id')
+    user_id = session.get('user_id') ##
     if not user_id:
         return redirect(url_for('login')) 
     stars = request.form['rating']
@@ -59,7 +59,7 @@ def submit_review_route(park_id):
     if len(comment) > 1000:
         flash('Kommentti on liian pitkä', 'error')  
         return redirect(url_for('park_details', park_id=park_id))
-
+    users.check_csrf()
     success, message = reviews.submit_review(user_id, park_id, stars, comment)
     if not success:
         flash(message, 'error')
@@ -83,6 +83,7 @@ def get_park_groups(group_id):
 
 @app.route('/add-group', methods=['POST'])
 def add_group():
+    users.check_csrf()
     if session.get('user_role') != 2:
         flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
         return redirect(url_for('groups'))
