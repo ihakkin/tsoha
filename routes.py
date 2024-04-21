@@ -120,7 +120,6 @@ def logout():
     users.logout()
     return redirect("/")
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
@@ -128,19 +127,25 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
-            return render_template("error.html", message="Tunnuksessa tulee olla 1-20 merkkiä")
+            flash("Tunnuksessa tulee olla 1-20 merkkiä", "error")
+            return redirect(url_for("register"))
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         if password1 != password2:
-            return render_template("error.html", message="Salasanat eroavat")
+            flash("Salasanat eroavat", "error")
+            return redirect(url_for("register"))
         if password1 == "":
-            return render_template("error.html", message="Salasana on tyhjä")
+            flash("Salasana on tyhjä", "error")
+            return redirect(url_for("register"))
         role = request.form["role"]
         if role not in ("1", "2"):
-            return render_template("error.html", message="Tuntematon käyttäjärooli")
+            flash("Tuntematon käyttäjärooli", "error")
+            return redirect(url_for("register"))
         if not users.register(username, password1, role):
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
-    
-        return redirect("/")
+            flash("Rekisteröinti ei onnistunut", "error")
+            return redirect(url_for("register"))
+
+        flash("Rekisteröinti onnistui!", "success")
+        return redirect(url_for("index"))
     
 

@@ -3,6 +3,18 @@
 
 <h2>Rekisteröinti</h2>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div>
+      {% for category, message in messages %}
+        <div class="{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
 <form action="/register" method="post">
 Tunnus: <br><input type="text" name="username" minlength="1" maxlength="20">
 <p>

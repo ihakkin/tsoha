@@ -23,8 +23,6 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
-
-
 }
 
 .rankings, .search {
@@ -38,12 +36,21 @@ body {
     padding: 10px 0;
     text-align: center; 
     margin: 0; 
+    display: flex; 
+    align-items: center;
+}
+
+.navbar-title {
+    margin-bottom: 0; 
+    font-size: 2em; 
+    vertical-align: bottom;
 }
 
 .navbar a {
     color: rgb(43, 42, 42);
     padding: 10px 20px; 
     text-decoration: none;
+    display: inline-block;
 }
 
 .navbar a:hover {
@@ -54,6 +61,7 @@ body {
 .logo {
     height: 200px; 
     vertical-align: middle;
+    margin-right: 10 px;
 }
 
 table {
@@ -120,10 +128,27 @@ td, th {
     border-color: darkgreen;
 }
 
+.error {
+    background-color: #87da92;
+    color: #0c0d0c; 
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #33d370; 
+    color: #1b4d1c; 
+    padding: 10px;
+    margin-top: 20px;
+  
+}
+
 .group-parks a {
     display: block;
     margin: 5px 0;  
-    color: blue;  
+    color: rgb(15, 65, 41);  
     text-decoration: none;  
 }
 
