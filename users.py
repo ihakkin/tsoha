@@ -29,8 +29,7 @@ def register(username, password, role):
     hash_value = generate_password_hash(password)
     try:
         role_int = int(role)
-        sql = text("""INSERT INTO users (username, password, role)
-                 VALUES (:username, :password, :role)""")
+        sql = text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)")
         db.session.execute(sql, {"username":username, "password":hash_value, "role":role_int})
         db.session.commit()
     except Exception as e:
@@ -40,7 +39,7 @@ def register(username, password, role):
 
 def user_id(username=None):
     if username:
-        sql = text('SELECT id from users WHERE username=:username')
+        sql = text("SELECT id from users WHERE username=:username")
         return db.session.execute(text(sql), {'username': username}).fetchone()[0]
     return session.get("user_id", 0)
 
