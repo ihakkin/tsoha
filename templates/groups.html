@@ -4,7 +4,7 @@
     <ul>
         {% for group in groups %}
             <li>
-                <a href="#" onclick="loadParks({{ group.id }})">{{ group.name }}</a>
+                <a href="#" onclick="loadParks('{{ group.id }}')">{{ group.name }}</a>
                 <p>{{ group.description }}</p>  
                 <div id="group-{{ group.id }}" class="group-parks" style="display: none;"></div>
             </li>
