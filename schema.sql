@@ -47,6 +47,10 @@ CREATE TABLE park_groups (
 
 -- Example data
 
+INSERT INTO users (username, password, role)
+VALUES ('viiru', 'Password', 1);
+
+
 INSERT INTO parks (id, name, has_separate_areas, has_entrance_area, has_beach) VALUES
 (DEFAULT, 'Tervasaaren koira-aitaus', true, false, true),
 (DEFAULT, 'Tokoinrannan koira-aitaus', true, false, false),
@@ -58,14 +62,11 @@ INSERT INTO parks (id, name, has_separate_areas, has_entrance_area, has_beach) V
 (DEFAULT, 'Rajasaaren koira-aitaus', false, false, true);
 
 INSERT INTO reviews (id, user_id, park_id, stars, comment) VALUES
-(DEFAULT, 12, 7, 4, 'kiva'),
-(DEFAULT, 12, 1, 4, 'Tilava puisto ja rauhallinen ympäristö. Uimarannalle pääsee kulkemalla isoje...'),
-(DEFAULT, 16, 2, 4, 'Isojen puolella on kivasti tilaa. Puiston ala-osassa on tosi matala-aita.'),
-(DEFAULT, 19, 7, 5, 'Kiva puisto rauhallisella paikalla. Korkeat aidat'),
-(DEFAULT, 19, 8, 3, 'Hieno paikka, mutta harmi ettei portilta näe puistossa olevia. Välillä vä...'),
-(DEFAULT, 19, 6, 3, 'Pienehkö. Rauhallinen ympäristö'),
-(DEFAULT, 19, 4, 3, 'Peruspuisto ja vähän meluinen paikka'),
-(DEFAULT, 19, 3, 2, 'Täällä käy pelottava husky joka kävi kerran Siiri-shiban kimppuun ja Siiri joutui eläinlääkäriin.');
+(DEFAULT, 1, 7, 5, 'Kiva puisto rauhallisella paikalla. Korkeat aidat'),
+(DEFAULT, 1, 8, 3, 'Hau'),
+(DEFAULT, 1, 6, 3, 'Pienehkö. Rauhallinen ympäristö'),
+(DEFAULT, 1, 4, 3, 'Peruspuisto ja vähän meluinen paikka'),
+(DEFAULT, 1, 3, 2, 'Täällä käy pelottava husky joka kävi kerran Siiri-shiban kimppuun ja Siiri joutui eläinlääkäriin.');
 
 INSERT INTO address (id, park_id, street, postal_code, city, latitude, longitude) VALUES
 (DEFAULT, 1, 'Tervasaarenkannas 3', '00170', 'Helsinki', 60.173264, 24.967426),
