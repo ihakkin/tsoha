@@ -57,6 +57,12 @@
         <i class="far fa-star"></i>
       {% endfor %}
       <div class="comment">{{ review.comment }}</div>
+      {% if session.user_role == 2 %} 
+      <form action="{{ url_for('delete_review_route', review_id=review.id, park_id=park_id) }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}"> 
+        <button type="submit">Poista arvio</button>
+      </form>
+    {% endif %}
     </div>
   {% endfor %}
 </div>

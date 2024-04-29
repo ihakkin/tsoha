@@ -38,6 +38,7 @@ def index():
     ranking = reviews.get_ranking() 
     return render_template("index.html", park_coordinates=park_coordinates, search_results=search_results, ranking=ranking)
 
+
 @app.route('/park/<int:park_id>')
 def park_details(park_id):
     park_info = parks.get_park_details(park_id)
@@ -70,16 +71,32 @@ def submit_review_route(park_id):
     return redirect(url_for('park_details', park_id=park_id)) 
 
 
+@app.route('/delete-review/<int:review_id>/<int:park_id>', methods=['POST'])
+def delete_review_route(review_id, park_id):
+    users.check_csrf()
+    if session.get('user_role') != 2:  
+        flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
+        return redirect(url_for('index'))
+    try:
+        reviews.delete_review(review_id)
+        flash('Arvio on poistettu onnistuneesti.', 'success')
+    except Exception as e:
+        flash(str(e), 'error')
+    return redirect(url_for('park_details', park_id=park_id)) 
+
+
 @app.route('/groups')
 def show_groups():
     group_data = groups.get_groups() 
     return render_template('groups.html', groups=group_data)
+
 
 @app.route('/get-parks/<int:group_id>')
 def get_park_groups(group_id):
     parks_by_groups = groups.get_parks_by_group(group_id) 
     park_groups = [row._asdict() for row in parks_by_groups]
     return jsonify({'park_groups': park_groups})
+
 
 @app.route('/add-group', methods=['POST'])
 def add_group():
@@ -120,6 +137,7 @@ def login():
 def logout():
     users.logout()
     return redirect("/")
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

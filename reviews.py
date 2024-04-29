@@ -15,7 +15,7 @@ def submit_review(user_id, park_id, stars, comment):
         return False, str(e)
 
 def get_reviews_for_park(park_id):
-    sql = "SELECT r.stars, r.comment, u.username FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.park_id = :park_id"
+    sql = "SELECT r.id, r.stars, r.comment, u.username FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.park_id = :park_id"
     return db.session.execute(text(sql), {"park_id": park_id}).fetchall()
     
 def get_review(user_id, park_id):
@@ -26,3 +26,8 @@ def get_ranking():
     sql =  "SELECT p.name, AVG(r.stars) AS average_rating FROM reviews r JOIN parks p ON p.id = r.park_id " \
     "GROUP BY p.id, p.name ORDER BY average_rating DESC LIMIT 5"
     return db.session.execute(text(sql)).fetchall()
+
+def delete_review(review_id):
+    sql = "DELETE FROM reviews WHERE id = :review_id"
+    db.session.execute(text(sql), {"review_id": review_id})
+    db.session.commit()
