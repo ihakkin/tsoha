@@ -111,8 +111,9 @@ def login():
         password = request.form["password"]
 
         if not users.login(username, password):
-            return render_template("error.html", message="Väärä tunnus tai salasana")
-        return redirect("/")
+            flash("Kirjautuminen ei onnistunut. Tarkista käyttäjätunnus ja salasana.", "error")
+            return redirect(url_for("login"))
+    return redirect(url_for("index"))
     
 
 @app.route("/logout")
@@ -127,22 +128,22 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
-            flash("Tunnuksessa tulee olla 1-20 merkkiä", "error")
+            flash("Käyttäjänimessä tulee olla 1-20 merkkiä", "error")
             return redirect(url_for("register"))
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         if password1 != password2:
-            flash("Salasanat eroavat", "error")
+            flash("Salasanat eroavat toisistaan, tarkista salasanan oikeinkirjoitus", "error")
             return redirect(url_for("register"))
         if password1 == "":
-            flash("Salasana on tyhjä", "error")
+            flash("Salasanakenttä on tyhjä", "error")
             return redirect(url_for("register"))
         role = request.form["role"]
         if role not in ("1", "2"):
             flash("Tuntematon käyttäjärooli", "error")
             return redirect(url_for("register"))
         if not users.register(username, password1, role):
-            flash("Rekisteröinti ei onnistunut", "error")
+            flash("Rekisteröinti ei onnistunut. Käyttäjänimi on varattu.", "error")
             return redirect(url_for("register"))
 
         flash("Rekisteröinti onnistui!", "success")

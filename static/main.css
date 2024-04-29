@@ -123,35 +123,23 @@ td, th {
     border-radius: 5px;
 }
 
-.alert {
-    background-color: #87da92;
-    color: #0c0d0c; 
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.alert-success {
-    background-color: #4CAF50; 
-    border-color: darkgreen;
-}
 
 .error {
-    background-color: #30dd6c; 
-    color: #115423; 
+    background-color: #6dd07a; 
+    color: #191d1a; 
     padding: 10px;
-    margin-top: 20px;
-    border-radius: 15px;
+    margin: 20px;
+    border-radius: 5px;
+    font-weight: bold;
     
 }
 
 .success {
-    background-color: #33d370; 
+    background-color: #93d2ad; 
     color: #1b4d1c; 
     padding: 10px;
-    margin-top: 20px;
-  
+    margin: 20px;
+    border-radius: 5px;
 }
 
 .group-parks a {
