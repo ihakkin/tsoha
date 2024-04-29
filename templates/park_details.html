@@ -61,14 +61,5 @@
   {% endfor %}
 </div>
 
-<script>
-  function check(form) {
-      if (form.comment.value.length > 1000) {
-          alert("Kommentti on liian pitk");
-          return false;
-      }
-      return true;
-  }
-  </script>
 
 {% endblock %}

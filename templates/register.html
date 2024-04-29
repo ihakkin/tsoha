@@ -16,11 +16,11 @@
 {% endwith %}
 
 <form action="/register" method="post">
-Käyttäjänimi: <br><input type="text" name="username" minlength="1" maxlength="20">
+Käyttäjänimi: <br><input type="text" name="username" minlength="1" maxlength="20" required>
 <p>
-Salasana: <br><input type="password" name="password1">
+Salasana: <br><input type="password" name="password1" required>
 <p>
-Salasana uudestaan: <br><input type="password" name="password2">
+Salasana uudestaan: <br><input type="password" name="password2" required>
 <p>
 Käyttäjärooli:
 <select name="role">
