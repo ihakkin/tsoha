@@ -1,6 +1,6 @@
 from sqlalchemy.sql import text
+from sqlalchemy import exc
 from db import db
-
 
 
 def get_groups():
@@ -17,8 +17,7 @@ def add_group_to_db(name, description):
         sql = """INSERT INTO groups (name, description) VALUES (:name, :description)"""
         db.session.execute(text(sql), {'name': name, 'description': description})
         db.session.commit()
-        return True, 'Ryhmä lisätty onnistuneesti.'
-    except Exception as e:
-        db.session.rollback()
-        return False, f'Ryhmän lisääminen epäonnistui: {str(e)}'
+    except exc.SQLAlchemyError:
+        return False
+    return True
     

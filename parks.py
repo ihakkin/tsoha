@@ -42,7 +42,7 @@ def search(has_separate_areas, has_entrance_area, has_beach):
             'name': park[1],
             'latitude':park[2],
             'longitude': park[3]
-            } 
+            }
             for park in search_list
             ]
     return search_results
@@ -68,4 +68,5 @@ def get_park_details(park_id):
                 'Dog beach': has_beach
             }
         }
+    return None
     

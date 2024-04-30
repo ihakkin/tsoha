@@ -2,6 +2,7 @@ import os
 from flask import request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.sql import text
+from sqlalchemy import exc
 from db import db
 
 
@@ -32,8 +33,7 @@ def register(username, password, role):
                    VALUES (:username, :password, :role)"""
         db.session.execute(text(sql), {'username':username, 'password':hash_value, 'role':role_int})
         db.session.commit()
-    except Exception as e:
-        print(e)
+    except exc.SQLAlchemyError:
         return False
     return login(username, password)
 

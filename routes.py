@@ -1,6 +1,6 @@
 from flask import session, flash, redirect, render_template, request, url_for, jsonify
-from sqlalchemy.sql import text
 import folium
+from sqlalchemy import exc
 from app import app
 import users
 import parks
@@ -48,6 +48,7 @@ def park_details(park_id):
 
 @app.route('/park/<int:park_id>', methods=['POST'])
 def submit_review_route(park_id):
+    users.check_csrf()
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('login'))
@@ -56,12 +57,8 @@ def submit_review_route(park_id):
     if len(comment) > 1000:
         flash('Kommentti on liian pitkä', 'error')
         return redirect(url_for('park_details', park_id=park_id))
-    users.check_csrf()
-    success, message = reviews.submit_review(user_id, park_id, stars, comment)
-    if not success:
-        flash(message, 'error')
-        return redirect(url_for('park_details', park_id=park_id))
-    flash('Kiitos arviostasi!', 'success')
+    if reviews.submit_review(user_id, park_id, stars, comment):
+        flash('Kiitos arviostasi!', 'success')
     return redirect(url_for('park_details', park_id=park_id))
 
 
@@ -74,8 +71,8 @@ def delete_review_route(review_id, park_id):
     try:
         reviews.delete_review(review_id)
         flash('Arvio on poistettu onnistuneesti.', 'success')
-    except Exception as e:
-        flash(str(e), 'error')
+    except exc.SQLAlchemyError:
+        return False
     return redirect(url_for('park_details', park_id=park_id))
 
 
@@ -103,8 +100,10 @@ def add_group():
     if not name or not description:
         flash('Nimi ja kuvaus ovat pakollisia.', 'error')
         return redirect(url_for('groups'))
-    success, message = groups.add_group_to_db(name, description)
-    flash(message, 'success' if success else 'error')
+    if groups.add_group_to_db(name, description):
+        flash('Ryhmä lisätty onnistuneesti.', 'success')
+    else:
+        flash('Ryhmän lisääminen epäonnistui.', 'error')
     return redirect(url_for('show_groups'))
 
 
