@@ -1,6 +1,5 @@
 from flask import session, flash, redirect, render_template, request, url_for, jsonify
 import folium
-from sqlalchemy import exc
 from app import app
 import users
 import parks
@@ -68,11 +67,10 @@ def delete_review_route(review_id, park_id):
     if session.get('user_role') != 2:
         flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
         return redirect(url_for('index'))
-    try:
-        reviews.delete_review(review_id)
+    if reviews.delete_review(review_id):
         flash('Arvio on poistettu onnistuneesti.', 'success')
-    except exc.SQLAlchemyError:
-        return False
+    else:
+        flash('Arvion poistaminen epäonnistui.', 'error')
     return redirect(url_for('park_details', park_id=park_id))
 
 

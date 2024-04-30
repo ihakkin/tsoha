@@ -30,6 +30,10 @@ def get_ranking():
     return db.session.execute(text(sql)).fetchall()
 
 def delete_review(review_id):
-    sql = """DELETE FROM reviews WHERE id = :review_id"""
-    db.session.execute(text(sql), {'review_id': review_id})
-    db.session.commit()
+    try:
+        sql = """DELETE FROM reviews WHERE id = :review_id"""
+        db.session.execute(text(sql), {'review_id': review_id})
+        db.session.commit()
+        return True
+    except exc.SQLAlchemyError:
+        return False
