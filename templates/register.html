@@ -16,19 +16,19 @@
 {% endwith %}
 
 <form action="/register" method="post">
-Käyttäjänimi: <br><input type="text" name="username" minlength="1" maxlength="20" required>
-<p>
-Salasana: <br><input type="password" name="password1" required>
-<p>
-Salasana uudestaan: <br><input type="password" name="password2" required>
-<p>
-Käyttäjärooli:
-<select name="role">
-<option value=1> käyttäjä
-<option value=2> ylläpitäjä
-</select>
-<p>
-<input type="submit" value="Luo tunnus">
+    Käyttäjänimi: <br><input type="text" name="username" value="{{ request.form.username if request.form.username else '' }}" minlength="1" maxlength="20" required>
+    <p>
+    Salasana: <br><input type="password" name="password1" value="{{ request.form.password1 if request.form.password1 else '' }}" required>
+    <p>
+    Salasana uudestaan: <br><input type="password" name="password2" value="{{ request.form.password2 if request.form.password2 else '' }}" required>
+    <p>
+    Käyttäjärooli:
+    <select name="role">
+        <option value="1" {% if request.form.role == '1' %}selected{% endif %}>käyttäjä</option>
+        <option value="2" {% if request.form.role == '2' %}selected{% endif %}>ylläpitäjä</option>
+    </select>
+    <p>
+    <input type="submit" value="Luo tunnus">
 </form>
 
 <p>

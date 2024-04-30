@@ -18,7 +18,7 @@
 
 <form action="/login" method="POST">
 <p>Tunnus:<br>
-<input type="text" name="username" required></p>
+<input type="text" name="username" value="{{ request.form.username if request.form.username else '' }}" required></p>
 <p>Salasana:<br>
 <input type="password" name="password" required></p>
 <input type="submit" value="Kirjaudu">

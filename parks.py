@@ -20,32 +20,30 @@ def get_coordinates():
 
 
 def search(has_separate_areas, has_entrance_area, has_beach):
-    base_query = """SELECT p.id, p.name, a.latitude, a.longitude FROM parks p
-    JOIN address a ON p.id = a.park_id WHERE """
+    base_query = """
+    SELECT p.id, p.name, a.latitude, a.longitude
+    FROM parks p
+    JOIN address a ON p.id = a.park_id
+    """
     conditions = []
     if has_separate_areas:
-        conditions.append('p.has_separate_areas = true')
+        conditions.append("p.has_separate_areas = true")
     if has_entrance_area:
-        conditions.append('p.has_entrance_area = true')
+        conditions.append("p.has_entrance_area = true")
     if has_beach:
-        conditions.append('p.has_beach = true')
-    if conditions:
-        condition_str = " AND ".join(conditions)
-        final_query = base_query + condition_str
-    else:
-        final_query = base_query + '1=1'
+        conditions.append("p.has_beach = true")
+    condition_str = " AND ".join(conditions) if conditions else "1=1"
+    final_query = f"{base_query} WHERE {condition_str}"
     result = db.session.execute(text(final_query))
-    search_list = result.fetchall()
-    search_results = [
+    return [
         {
-            'id': park[0],
-            'name': park[1],
-            'latitude':park[2],
-            'longitude': park[3]
-            }
-            for park in search_list
-            ]
-    return search_results
+            'id': park.id,
+            'name': park.name,
+            'latitude': park.latitude,
+            'longitude': park.longitude
+        }
+        for park in result.fetchall()
+    ]
 
 
 def get_park_details(park_id):

@@ -9,31 +9,28 @@ import groups
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    park_coordinates = parks.get_coordinates()
     search_results = None
-    search_attempted = False
+    markers = parks.get_coordinates()
     if request.method == 'POST' and request.form:
-        search_attempted = True
         has_separate_areas = 'has_separate_areas' in request.form
         has_entrance_area = 'has_entrance_area' in request.form
         has_beach = 'has_beach' in request.form
         search_results = parks.search(has_separate_areas, has_entrance_area, has_beach)
-    if search_results:
-        markers = search_results
-    else:
-        markers = park_coordinates
-        if search_attempted:
+        if search_results:
+            markers = search_results
+        else:
             flash('Haku ei tuottanut yhtään tulosta', 'error')
+    map = build_map(markers)
+    ranking = reviews.get_ranking()
+    return render_template('index.html', markers=markers, search_results=search_results, ranking=ranking)
+
+def build_map(markers):
     map = folium.Map(location=[60.1799, 24.9684], width='100%', height=600, zoom_start=13)
     for park in markers:
         popup_content = f"<a href='/park/{park['id']}'>{park['name']}</a>"
-        folium.Marker(
-            [park['latitude'], park['longitude']],
-            popup=popup_content
-        ).add_to(map)
+        folium.Marker([park['latitude'], park['longitude']], popup=popup_content).add_to(map)
     map.save('templates/map.html')
-    ranking = reviews.get_ranking()
-    return render_template('index.html', park_coordinates=park_coordinates, search_results=search_results, ranking=ranking)
+    return map
 
 
 @app.route('/park/<int:park_id>')
@@ -51,11 +48,13 @@ def submit_review_route(park_id):
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('login'))
+    park_info = parks.get_park_details(park_id)
+    review= reviews.get_reviews_for_park(park_id)
     stars = request.form['rating']
     comment = request.form['comment']
     if len(comment) > 1000:
         flash('Kommentti on liian pitkä', 'error')
-        return redirect(url_for('park_details', park_id=park_id))
+        return render_template('park_details.html', park_id=park_id, park_info=park_info, review=review, rating=stars, comment=comment)
     if reviews.submit_review(user_id, park_id, stars, comment):
         flash('Kiitos arviostasi!', 'success')
     return redirect(url_for('park_details', park_id=park_id))
@@ -97,11 +96,12 @@ def add_group():
     description = request.form.get('description')
     if not name or not description:
         flash('Nimi ja kuvaus ovat pakollisia.', 'error')
-        return redirect(url_for('groups'))
+        return render_template('groups.html', name=name, description=description)
     if groups.add_group_to_db(name, description):
         flash('Ryhmä lisätty onnistuneesti.', 'success')
     else:
         flash('Ryhmän lisääminen epäonnistui.', 'error')
+        return render_template('groups.html', name=name, description=description)
     return redirect(url_for('show_groups'))
 
 
@@ -112,9 +112,12 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if not users.login(username, password):
+        if users.login(username, password):
+            session['username'] = username
+            return redirect(url_for('index'))
+        else:
             flash('Kirjautuminen ei onnistunut. Tarkista käyttäjätunnus ja salasana.', 'error')
-            return redirect(url_for('login'))
+            return render_template('login.html', username=username)
     return redirect(url_for('index'))
 
 
@@ -141,9 +144,8 @@ def register():
         error_message = 'Salasanakenttä on tyhjä'
     elif not users.register(username, password1, role):
         error_message = 'Rekisteröinti ei onnistunut. Käyttäjänimi on varattu.'
-    if error_message:
-        flash(error_message, 'error')
-        return redirect(url_for('register'))
-    flash("Rekisteröinti onnistui!", 'success')
-    return redirect(url_for('index'))
-    
+    else:
+        flash("Rekisteröinti onnistui!", 'success')
+        return redirect(url_for('index'))
+    flash(error_message, 'error')
+    return render_template('register.html', username=username, role=role, password1=password1, password2=password2)
