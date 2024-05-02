@@ -37,5 +37,24 @@
         <input type="submit" value="Lisää ryhmä">
     </form>
 </div>
+<div class="add-park-to-group-form">
+    <h3>Lisää puisto ryhmään</h3>
+    <form action="/add-park-to-group" method="post">
+        <label for="park_id">Valitse puisto:</label>
+        <select id="park_id" name="park_id">
+            {% for park in parks %}
+                <option value="{{ park.id }}">{{ park.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="group_id">Valitse ryhmä:</label>
+        <select id="group_id" name="group_id">
+            {% for group in groups %}
+                <option value="{{ group.id }}">{{ group.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+        <button type="submit">Lisää puisto ryhmään</button>
+    </form>
+</div>
 {% endif %}
 {% endblock %}

@@ -7,6 +7,7 @@ import reviews
 import groups
 
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     search_results = None
@@ -76,8 +77,9 @@ def delete_review_route(review_id, park_id):
 @app.route('/groups')
 def show_groups():
     group_data = groups.get_groups()
-    return render_template('groups.html', groups=group_data)
-
+    parks_data = groups.get_all_parks()
+    return render_template('groups.html', groups=group_data, parks=parks_data)
+   
 
 @app.route('/get-parks/<int:group_id>')
 def get_park_groups(group_id):
@@ -103,6 +105,22 @@ def add_group():
         flash('Ryhmän lisääminen epäonnistui.', 'error')
         return render_template('groups.html', name=name, description=description)
     return redirect(url_for('show_groups'))
+
+
+@app.route('/add-park-to-group', methods=['POST'])
+def add_park_to_group():
+    if session.get('user_role') != 2:
+        flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
+        return redirect(url_for('show_groups'))
+    if request.method == 'POST':
+        users.check_csrf()
+        park_id = request.form.get('park_id')
+        group_id = request.form.get('group_id')
+        if groups.add_park_to_group(park_id, group_id):
+            flash('Puisto lisätty ryhmään onnistuneesti!', 'success')
+        else:
+            flash('Puiston lisääminen ryhmään epäonnistui.', 'error')
+        return redirect(url_for('show_groups'))
 
 
 @app.route('/login',methods=['GET','POST'])

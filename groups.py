@@ -20,4 +20,17 @@ def add_group_to_db(name, description):
     except exc.SQLAlchemyError:
         return False
     return True
+
+def get_all_parks():
+    sql = "SELECT id, name FROM parks ORDER BY name"
+    return db.session.execute(text(sql)).fetchall()
     
+    
+def add_park_to_group(park_id, group_id):
+    try:
+        sql = """INSERT INTO park_groups (park_id, group_id) VALUES (:park_id, :group_id)"""
+        db.session.execute(text(sql), {'park_id': park_id, 'group_id': group_id})
+        db.session.commit()
+        return True
+    except exc.SQLAlchemyError:
+        return False
