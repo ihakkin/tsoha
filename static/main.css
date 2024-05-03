@@ -42,10 +42,19 @@ body {
     width: 100%; 
     background-color: #d3f5d3; 
     color: rgb(47, 46, 46);
-    padding: 10px 0;
-    text-align: center; 
-    margin: 0; 
+    padding: 10px 20px;
+    margin: 0, auto; 
     display: flex; 
+    align-items: center;
+}
+
+.navbar-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; 
+    padding: 10px 20px;
     align-items: center;
 }
 
@@ -151,4 +160,23 @@ td, th {
 
 .group-parks a:hover {
     text-decoration: underline;  
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #76d479; 
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #45a049; 
 }

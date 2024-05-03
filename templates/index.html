@@ -32,21 +32,21 @@
                 </ul>
             {% endif %}
             {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="{{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
+        {% if session.user_role == 2 %}
+            <div class="add-park-button">
+                <a href="/add_park" class="button">Lisää tai poista puistoja</a>
+            </div>
+        {% endif %}
     </div>
-    {% if session.user_role == 2 %}
-    <div class="add-park-button">
-        <a href="/add_park" class="button">Lisää tai poista puistoja</a>
-    </div>
-{% endif %}
 </div>
 
 {% endblock %}

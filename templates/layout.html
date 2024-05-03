@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="navbar">
+    <div class="navbar-inner">
         <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Koirapuistot Logo" class="logo"></a>
         <h1 class="navbar-title">Koirapuistot</h1> 
         {% if session.user_id %}
@@ -20,6 +21,7 @@
         {% endif %}
         <a href="/groups">Ylläpitäjän suositukset</a>
     </div>
+</div>
     <div class="container">
         <hr>
         {% block content %}{% endblock %}
