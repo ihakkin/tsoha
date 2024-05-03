@@ -17,7 +17,7 @@ CREATE TABLE parks (
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES Users(id),
-    park_id INTEGER REFERENCES Parks(id),
+    park_id INTEGER REFERENCES Parks(id) ON DELETE CASCADE,
     stars INTEGER,
     comment TEXT
         
@@ -25,7 +25,7 @@ CREATE TABLE reviews (
 
 CREATE TABLE address (
     id SERIAL PRIMARY KEY,
-    park_id INTEGER REFERENCES Parks(id),
+    park_id INTEGER REFERENCES Parks(id) ON DELETE CASCADE,
     street TEXT,
     postal_code VARCHAR(5),
     city TEXT,
@@ -40,7 +40,7 @@ CREATE TABLE groups (
 );
 
 CREATE TABLE park_groups (
-    park_id INTEGER REFERENCES Parks(id),
+    park_id INTEGER REFERENCES Parks(id) ON DELETE CASCADE,
     group_id INTEGER REFERENCES Groups(id),
     PRIMARY KEY (park_id, group_id)
 );
