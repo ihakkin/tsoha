@@ -171,12 +171,31 @@ def add_park_route():
         else:
             flash('Koirapuisto lisätty onnistuneesti!', 'success')
             return redirect(url_for('index'))
+    if session.get('user_role') == 2:
+        all_parks = groups.get_all_parks()
+    else:
+        all_parks = None 
     return render_template('add_park.html',
                            name=name, street=street, postal_code=postal_code,
                            city=city, latitude=latitude, longitude=longitude,
                            has_separate_areas=has_separate_areas,
                            has_entrance_area=has_entrance_area,
-                           has_beach=has_beach)
+                           has_beach=has_beach, all_parks=all_parks)
+
+
+@app.route('/delete_park', methods=['POST'])
+def delete_park_route():
+    users.check_csrf()
+    if session.get('user_role') != 2:
+        flash('Sinulla ei ole oikeuksia suorittaa tätä toimintoa.', 'error')
+        return redirect(url_for('index'))
+
+    park_id = request.form.get('park_id')
+    if parks.delete_park(park_id):
+        flash('Puisto poistettu onnistuneesti.', 'success')
+    else:
+        flash('Puiston poistaminen epäonnistui.', 'error')
+    return redirect(url_for('add_park_route'))
 
 
 @app.route('/login',methods=['GET','POST'])

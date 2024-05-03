@@ -107,7 +107,7 @@ def add_park(name, has_separate_areas, has_entrance_area, has_beach, street, pos
 def delete_park(park_id):
     try:
         sql = """DELETE FROM parks WHERE id = :id"""
-        db.session.execute(sql, {'id': park_id})
+        db.session.execute(text(sql), {'id': park_id})
         db.session.commit()
         return True
     except exc.SQLAlchemyError:

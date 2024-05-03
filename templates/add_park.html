@@ -44,6 +44,17 @@
       
         <input type="submit" value="Lisää">
     </form>
+
+    <h3>Poista puisto</h3>
+    <form action="/delete_park" method="post">
+        <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+        <select name="park_id">
+            {% for park in all_parks %}
+            <option value="{{ park.id }}">{{ park.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Poista puisto">
+    </form>
 </div>
 {% endblock %}
     
