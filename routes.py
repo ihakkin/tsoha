@@ -125,6 +125,15 @@ def add_park_to_group():
 
 @app.route('/add_park', methods=['GET', 'POST'])
 def add_park_route():
+    name = ''
+    street = ''
+    postal_code = ''
+    city = ''
+    latitude = ''
+    longitude = ''
+    has_separate_areas = False
+    has_entrance_area = False
+    has_beach = False
     if request.method == 'POST':
         users.check_csrf()
         if session.get('user_role') != 2:
@@ -139,36 +148,35 @@ def add_park_route():
         has_separate_areas = 'has_separate_areas' in request.form
         has_entrance_area = 'has_entrance_area' in request.form
         has_beach = 'has_beach' in request.form
-        if len(name) > 50 or len(street) > 50 or len(city) > 50:
-            flash ('Syöte on liian pitkä', 'error')
-        elif not postal_code.isdigit() or len(postal_code) != 5:
-            flash ('Postinumeron on oltava viisinumeroinen.', 'error')
         try:
             latitude = float(latitude)
             longitude = float(longitude)
-            if not (-90 <= latitude <= 90) or not (-180 <= longitude <= 180):
-                flash('Tarkista koordinaattien arvot.', 'error')
         except ValueError:
-            flash('Leveys- ja pituusasteen on oltava numeerisia arvoja. Käytä pistettä desimaalipilkun sijaan', 'error')
+            flash('Leveys- ja pituusasteen on oltava numeerisia arvoja. Käytä pistettä desimaalipilkun sijaan.', 'error')
             return render_template('add_park.html', 
                                    name=name, street=street, postal_code=postal_code,
                                    city=city, latitude=latitude, longitude=longitude,
                                    has_separate_areas=has_separate_areas,
                                    has_entrance_area=has_entrance_area,
                                    has_beach=has_beach)
-        success, message = parks.add_park(name, has_separate_areas, has_entrance_area, has_beach,
-                                          street, postal_code, city, latitude, longitude)
-        if not success:
-            flash(message or 'Koirapuiston lisääminen epäonnistui. Tarkista tiedot ja yritä uudelleen.', 'error')
-            return render_template('add_park.html', 
-                                   name=name, street=street, postal_code=postal_code,
-                                   city=city, latitude=latitude, longitude=longitude,
-                                   has_separate_areas=has_separate_areas,
-                                   has_entrance_area=has_entrance_area,
-                                   has_beach=has_beach)
-        flash('Koirapuisto lisätty onnistuneesti!', 'success')
-        return redirect(url_for('index'))
-    return render_template('add_park.html')
+        if len(name) > 50 or len(street) > 50 or len(city) > 50:
+            flash('Syöte on liian pitkä', 'error')
+        elif not postal_code.isdigit() or len(postal_code) != 5:
+            flash('Postinumeron on oltava viisinumeroinen.', 'error')
+        elif not (-90 <= latitude <= 90) or not (-180 <= longitude <= 180):
+            flash('Tarkista koordinaattien arvot.', 'error')
+        elif not parks.add_park(name, has_separate_areas, has_entrance_area, has_beach,
+                                street, postal_code, city, latitude, longitude):
+            flash('Koirapuiston lisääminen epäonnistui tai samanniminen puisto on jo olemassa.', 'error')
+        else:
+            flash('Koirapuisto lisätty onnistuneesti!', 'success')
+            return redirect(url_for('index'))
+    return render_template('add_park.html',
+                           name=name, street=street, postal_code=postal_code,
+                           city=city, latitude=latitude, longitude=longitude,
+                           has_separate_areas=has_separate_areas,
+                           has_entrance_area=has_entrance_area,
+                           has_beach=has_beach)
 
 
 @app.route('/login',methods=['GET','POST'])

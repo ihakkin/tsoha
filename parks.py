@@ -75,13 +75,15 @@ def add_park(name, has_separate_areas, has_entrance_area, has_beach, street, pos
     sql_existing_park = "SELECT id FROM parks WHERE name = :name"
     existing_park = db.session.execute(text(sql_existing_park), {'name': name}).fetchone()
     if existing_park:
-        return False, "Samanninminen puisto on jo olemassa."
+        return False
     try:
         sql = """INSERT INTO parks (name, has_separate_areas, has_entrance_area, has_beach)
                  VALUES (:name, :has_separate_areas, :has_entrance_area, :has_beach)"""
         db.session.execute(text(sql), {
-            "name": name, "has_separate_areas": has_separate_areas,
-            "has_entrance_area": has_entrance_area, "has_beach": has_beach
+            "name": name,
+            "has_separate_areas": has_separate_areas,
+            "has_entrance_area": has_entrance_area,
+            "has_beach": has_beach
         })
         db.session.flush()
         park_id = db.session.execute(text('SELECT LASTVAL()')).fetchone()[0]
@@ -89,9 +91,23 @@ def add_park(name, has_separate_areas, has_entrance_area, has_beach, street, pos
         sql_address = """INSERT INTO address (park_id, street, postal_code, city, latitude, longitude)
                          VALUES (:park_id, :street, :postal_code, :city, :latitude, :longitude)"""
         db.session.execute(text(sql_address), {
-            "park_id": park_id, "street": street, "postal_code": postal_code,
-            "city": city, "latitude": latitude, "longitude": longitude
+            "park_id": park_id,
+            "street": street,
+            "postal_code": postal_code,
+            "city": city,
+            "latitude": latitude,
+            "longitude": longitude
         })
+        db.session.commit()
+        return True
+    except exc.SQLAlchemyError:
+        return False
+
+
+def delete_park(park_id):
+    try:
+        sql = """DELETE FROM parks WHERE id = :id"""
+        db.session.execute(sql, {'id': park_id})
         db.session.commit()
         return True
     except exc.SQLAlchemyError:
