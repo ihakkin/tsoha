@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="add-park-form">
+    <h3>Lisää uusi koirapuisto</h3>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class=" {{ category }} ">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/add_park" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+        <label for="name">Puiston nimi:</label>
+        <input type="text" id="name" name="name" required value="{{ name|default('') }}">
+    
+        <label for="street">Katuosoite:</label>
+        <input type="text" id="street" name="street" required value="{{ street|default('') }}">
+        
+        <label for="postal_code">Postinumero:</label>
+        <input type="text" id="postal_code" name="postal_code" required value="{{ postal_code|default('') }}">
+           
+        <label for="city">Kaupunki:</label>
+        <input type="text" id="city" name="city" required value="{{ city|default('') }}">
+        
+        <label for="latitude">Leveysaste:</label>
+        <input type="text" id="latitude" name="latitude" required value="{{ latitude|default('') }}">
+        
+        <label for="longitude">Pituusaste:</label>
+        <input type="text" id="longitude" name="longitude" required value="{{ longitude|default('') }}">
+        
+        <input type="checkbox" name="has_separate_areas" id="has_separate_areas" {{ 'checked' if has_separate_areas else '' }}>
+        <label for="has_separate_areas">Erilliset aitaukset pienille ja isoille koirille</label><br>
+        
+        <input type="checkbox" name="has_entrance_area" id="has_entrance_area" {{ 'checked' if has_entrance_area else '' }}>
+        <label for="has_entrance_area">Aitauksessa on eteinen</label><br>
+        
+        <input type="checkbox" name="has_beach" id="has_beach" {{ 'checked' if has_beach else '' }}>
+        <label for="has_beach">Aitauksessa on koirien uimaranta</label><br>
+      
+        <input type="submit" value="Lisää">
+    </form>
+</div>
+{% endblock %}
+    

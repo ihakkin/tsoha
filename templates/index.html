@@ -42,6 +42,11 @@
         {% endwith %}
         </div>
     </div>
+    {% if session.user_role == 2 %}
+    <div class="add-park-button">
+        <a href="/add_park" class="button">Lisää uusi koirapuisto</a>
+    </div>
+{% endif %}
 </div>
 
 {% endblock %}
