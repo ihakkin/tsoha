@@ -13,7 +13,7 @@ Jokainen käyttäjä on peruskäyttäjä tai ylläpitäjä.
 - Ylläpitäjä voi tarvittaessa poistaa käyttäjän antaman arvion.
 - Ylläpitäjä voi luoda ryhmiä, joihin koirapuistoja voi luokitella. Puisto voi kuulua yhteen tai useampaan ryhmään.
 
-Kaikki suunnitellut ominaisuudet on toteutettu. Edelliseessä välipalautuksessa saadun palautteen perusteella virheviestejä on paranneltu ja lomakkeiden esitäyttö otettu käyttöön lomakkeen uudelleenlatauksen yhteydessä.
+Kaikki suunnitellut ominaisuudet on toteutettu. Edellisessä välipalautuksessa saadun palautteen perusteella virheviestejä on paranneltu ja lomakkeiden esitäyttö otettu käyttöön lomakkeen uudelleenlatauksen yhteydessä.
 
 Sovelluksen testaaminen:
 
