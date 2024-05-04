@@ -22,11 +22,8 @@ def get_coordinates():
 
 
 def search(has_separate_areas, has_entrance_area, has_beach):
-    base_query = """
-    SELECT p.id, p.name, a.latitude, a.longitude
-    FROM parks p
-    JOIN address a ON p.id = a.park_id
-    """
+    base_query = """SELECT p.id, p.name, a.latitude, a.longitude
+                FROM parks p JOIN address a ON p.id = a.park_id"""
     conditions = []
     if has_separate_areas:
         conditions.append("p.has_separate_areas = true")
@@ -66,13 +63,13 @@ def get_park_details(park_id):
                 'Separate areas for small and big dogs': has_separate_areas,
                 'Entrance area': has_entrance_area,
                 'Dog beach': has_beach
-            }
-        }
+            }}
     return None
 
 
-def add_park(name, has_separate_areas, has_entrance_area, has_beach, street, postal_code, city, latitude, longitude):
-    sql_existing_park = "SELECT id FROM parks WHERE name = :name"
+def add_park(name, has_separate_areas, has_entrance_area, has_beach,
+             street, postal_code, city, latitude, longitude):
+    sql_existing_park = """SELECT id FROM parks WHERE name = :name"""
     existing_park = db.session.execute(text(sql_existing_park), {'name': name}).fetchone()
     if existing_park:
         return False
@@ -80,23 +77,23 @@ def add_park(name, has_separate_areas, has_entrance_area, has_beach, street, pos
         sql = """INSERT INTO parks (name, has_separate_areas, has_entrance_area, has_beach)
                  VALUES (:name, :has_separate_areas, :has_entrance_area, :has_beach)"""
         db.session.execute(text(sql), {
-            "name": name,
-            "has_separate_areas": has_separate_areas,
-            "has_entrance_area": has_entrance_area,
-            "has_beach": has_beach
+            'name': name,
+            'has_separate_areas': has_separate_areas,
+            'has_entrance_area': has_entrance_area,
+            'has_beach': has_beach
         })
         db.session.flush()
-        park_id = db.session.execute(text('SELECT LASTVAL()')).fetchone()[0]
+        park_id = db.session.execute(text("""SELECT LASTVAL()""")).fetchone()[0]
 
         sql_address = """INSERT INTO address (park_id, street, postal_code, city, latitude, longitude)
                          VALUES (:park_id, :street, :postal_code, :city, :latitude, :longitude)"""
         db.session.execute(text(sql_address), {
-            "park_id": park_id,
-            "street": street,
-            "postal_code": postal_code,
-            "city": city,
-            "latitude": latitude,
-            "longitude": longitude
+            'park_id': park_id,
+            'street': street,
+            'postal_code': postal_code,
+            'city': city,
+            'latitude': latitude,
+            'longitude': longitude
         })
         db.session.commit()
         return True
